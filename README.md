@@ -1,51 +1,35 @@
 # zana-kaya-bot
+
 ---
 
 <p align="center">
   <img src="https://img.shields.io/badge/Node.js-18.x%2B-green?logo=node.js" />
-  <img src="https://img.shields.io/badge/Custom%20Dates-%E2%9C%94%EF%B8%8F-blue" />
-  <img src="https://img.shields.io/badge/Commits%20Limit-10K/day-orange" />
+  <img src="https://img.shields.io/badge/Custom_Times-%E2%9C%94%EF%B8%8F-blue" />
+  <img src="https://img.shields.io/badge/Safe_Limit-10K/day-orange" />
 </p>
 
 # Git Timeline Architect ⏳  
-**Complete Control Over GitHub Contribution History**  
+**Precision GitHub Contribution Automation**  
 
-Create perfectly customized GitHub commit patterns with millisecond precision. Design contribution graphs for any date range while maintaining authentic commit signatures.
+Create authentic commit histories with granular control over dates/times. Ideal for testing contribution graphs or simulating project activity patterns.
 
 ---
 
 ## Table of Contents  
-- [Full Customization](#full-customization)  
+- [Key Features](#key-features)  
 - [Quick Setup](#quick-setup)  
-- [Advanced Configuration](#advanced-configuration)  
+- [Customization](#customization)  
 - [Execution Modes](#execution-modes)  
-- [Ethical Guidelines](#ethical-guidelines)  
+- [Ethical Use](#ethical-use)  
+- [Troubleshooting](#troubleshooting)  
 
 ---
 
-## Full Customization 🎛️  
-
-### 1. Date Range Freedom  
-```javascript
-// Set ANY start/end dates (format: YYYY-MM-DD)
-const START_DATE = moment('2024-01-01');  // Edit this
-const END_DATE = moment('2025-12-31');    // Edit this
-```
-
-### 2. Commit Volume Control  
-```javascript
-// Set exact number of commits
-makeCommit(365) // Change 365 to desired total
-```
-
-### 3. Time Precision  
-```javascript
-// Add random hours/minutes/seconds
-const DATE = START_DATE.clone()
-  .add(randomDays, 'days')
-  .add(Math.random() * 24, 'hours')  // Random time
-  .format();
-```
+## Key Features ✨  
+- **Date Range Control**: Any start/end dates  
+- **Time Precision**: Millisecond-accurate commits  
+- **Pattern Customization**: Cluster commits by time/day  
+- **Multi-Environment Support**: Local or CI/CD execution  
 
 ---
 
@@ -53,12 +37,12 @@ const DATE = START_DATE.clone()
 
 ### 1. Initialize Project  
 ```bash
-mkdir git-architect && cd git-architect
+mkdir commit-architect && cd commit-architect
 npm init -y
 npm install moment jsonfile simple-git
 ```
 
-### 2. Create Configurable Script  
+### 2. Create Configuration File  
 `index.js`:
 ```javascript
 const jsonfile = require('jsonfile');
@@ -67,9 +51,9 @@ const simpleGit = require('simple-git');
 const FILE_PATH = './.timestamps';
 
 // USER CONFIG START
-const COMMIT_COUNT = 500; // Set total commits
-const START_DATE = moment('2024-04-01'); // Start date
-const END_DATE = moment('2024-12-31'); // End date
+const COMMIT_COUNT = 500;            // Total commits to generate
+const START_DATE = moment('2024-01-01');  // Start date (YYYY-MM-DD)
+const END_DATE = moment('2024-12-31');    // End date (YYYY-MM-DD)
 // USER CONFIG END
 
 const TOTAL_DAYS = END_DATE.diff(START_DATE, 'days');
@@ -97,63 +81,91 @@ const makeCommit = n => {
 makeCommit(COMMIT_COUNT);
 ```
 
----
+### 3. Initialize Git Repository  
+```bash
+git init && git remote add origin YOUR_REPO_URL
+```
 
-## Advanced Configuration ⚙️  
-
-### Execution Modes  
-
-| Mode | Command | Description |
-|------|---------|-------------|
-| Basic | `node index.js` | Uses config values from file |
-| Bulk | `COMMIT_COUNT=1000 node index.js` | Override commit count |
-| Range | `START="2024-06-01" END="2024-06-30" node index.js` | Temporary date range |
-
-### Time Distribution Options  
-```javascript
-// For clustered commits (e.g., weekdays only)
-const workDaysOnly = momentDate => {
-  const day = momentDate.day();
-  return day !== 0 && day !== 6; // Skip weekends
-};
-
-// For time-sensitive patterns
-const offHoursOnly = momentDate => {
-  const hour = momentDate.hour();
-  return hour >= 18 || hour <= 9; // Evening/morning commits
-};
+### 4. Generate & Push Commits  
+```bash
+node index.js && git push -u origin main
 ```
 
 ---
 
-## Ethical Guidelines ⚖️  
+## Customization ⚙️  
 
-1. **Transparency Principle**  
-   - Always disclose automated commits in repo description  
-   - Use `[Bot]` prefix in commit messages when public  
+### Temporal Patterns  
+```javascript
+// Example: Business hours only (9AM-5PM UTC)
+const workHours = momentDate => {
+  const hour = momentDate.utc().hour();
+  return hour >= 9 && hour < 17;
+};
 
-2. **Fair Use Limits**  
-   - Max 1,000 commits/day for repository integrity  
-   - Avoid consecutive identical timestamps  
+// Example: Weekday clustering
+const weekdaysOnly = momentDate => {
+  return momentDate.isoWeekday() < 6;
+};
+```
 
-3. **Validation Checklist**  
+### Execution Modes  
+
+| Mode | Command | Use Case |
+|------|---------|----------|
+| **Standard** | `node index.js` | Default configuration |
+| **Burst** | `COMMIT_COUNT=2500 node index.js` | Large-scale testing |
+| **Focus** | `START="2024-07-01" END="2024-07-07" node index.js` | Specific week simulation |
+
+---
+
+## Ethical Use ⚖️  
+
+### Mandatory Practices  
+- 🚫 Never use on production repositories  
+- 🔍 Regular audit of generated commits  
+- 📢 Clear automation disclosure in README  
+
+### Recommended Limits  
+| Scenario | Max Commits | Frequency |
+|----------|-------------|-----------|
+| Testing | 1,000/day | Weekly |
+| CI/CD | 500/day | Per deployment |
+| Education | 100/day | As needed |
+
+---
+
+## Troubleshooting 🔧  
+
+### Commit Validation  
+```bash
+# Verify commit chronology
+git log --reverse --pretty=format:"%h %ad"
+
+# Check signature authenticity
+git show -s --format=%ci HEAD
+```
+
+### Common Solutions  
+1. **Clock Sync Issues**  
    ```bash
-   # Verify commit authenticity
-   git log --pretty=format:"%h %ad %s" --date=iso
+   timedatectl set-ntp true  # Linux
+   w32tm /resync             # Windows
    ```
-
-4. **Recommended Use Cases**  
-   - CI/CD pipeline testing  
-   - Contribution graph visualization experiments  
-   - Git client compatibility testing  
+   
+2. **GitHub Timestamp Filtering**  
+   - Allow ±4 hour local clock drift  
+   - Avoid future-dated commits
 
 ---
 
 <p align="center">
-  🔍 GitHub detects artificial patterns - Use responsibly!
+  ⚠️ Artificial patterns may trigger GitHub's fraud detection systems  
+  ✅ Use responsibly and transparently
 </p>
 
 ---
+
 
 
 
