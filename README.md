@@ -1,1 +1,1 @@
-# zana-kana-bot
+# zana-kaya-bot
