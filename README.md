@@ -9,8 +9,8 @@
   <img src="https://img.shields.io/badge/License-MIT-blue" />
 </p>
 
-# Git Contribution Architect ⏳  
-**Precision GitHub Timeline Generator**  
+# Git Contribution Architect and GitHub Commit Generator ⏳🤖  
+**Automate Meaningful GitHub Contributions**  
 
 Create authentic-looking commit histories with surgical precision. Perfect for testing contribution graphs, CI/CD pipelines, or Git experimentation.
 
@@ -193,6 +193,12 @@ graph TD
 <p align="center">
   🔍 GitHub may filter artificial patterns - Use responsibly!<br>
   💡 Real contributions always trump automated metrics
+</p>
+
+---
+
+<p align="center">  
+  💡 Remember: Quality contributions > Quantity metrics  
 </p>
 
 ---
